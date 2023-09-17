@@ -20,7 +20,7 @@ int main()
 
 void test_validity()
 {
-  std::cout << "[INFO] Validity test run\n";
+  std::cout << "[INFO] Validity test run" << '\n';
 
   bool typeError = false;
   bool dataError = false;
@@ -41,9 +41,9 @@ void test_validity()
   typeError = (typeid(resultDouble) != typeid(resultDoubleRight));
   dataError = (resultDouble != resultDoubleRight);
 
-  std::cout << "[INFO] Type error: "
+  std::cout << "[INFO] Data type error: "
             << typeError << '\n'
-            << "[INFO] Data error: "
+            << "[INFO] Calculation error: "
             << dataError << '\n'
             << "[INFO] Validity test completed" << '\n';
 }
