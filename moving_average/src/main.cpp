@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <typeinfo>
+#include <vector>
 
 #include "moving_average.hpp"
 
