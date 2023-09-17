@@ -1,15 +1,20 @@
 
+#include <algorithm>
+#include <chrono>
 #include <iostream>
+#include <random>
 #include <typeinfo>
 
 #include "moving_average.hpp"
 
 
 void test_validity();
+void test_performance();
 
 int main()
 {
   test_validity();
+  test_performance();
 
   std::vector<float> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
@@ -46,4 +51,39 @@ void test_validity()
             << "[INFO] Calculation error: "
             << dataError << '\n'
             << "[INFO] Validity test completed" << '\n';
+}
+
+void test_performance()
+{
+  std::cout << "[INFO] Performance test run\n";
+
+  // Tools for generating random numbers
+  std::mt19937 gen(std::random_device{}());
+  std::uniform_real_distribution<> dist(0.0, 100.0);
+
+  // Creating an synthetic dataset that includes 1'000'000 random values
+  // You can choose float or double data types
+  std::vector<float> data(1'000'000);
+  std::generate_n(data.begin(), data.size(), [&gen, &dist] { return dist(gen); });
+
+  // Processing of a dataset by a simple moving average algorithm
+  // You can choose the window size from the range 4, 8, 16, 32, 64, 128
+  std::size_t window = 4;
+
+  auto start = std::chrono::high_resolution_clock::now();
+  simple_moving_average(data, window);
+  auto end = std::chrono::high_resolution_clock::now();
+
+  std::chrono::duration<double> time = end - start;
+
+  // Calculation of performance metric in counts/seconds
+  std::cout << "[INFO] Data type: "
+            << typeid(data[0]).name() << '\n'
+            << "[INFO] Dataset size: "
+            << data.size() << '\n'
+            << "[INFO] Window size: "
+            << window << '\n'
+            << "[INFO] Performance metric in counts/seconds: "
+            << (data.size() / time.count()) << '\n'
+            << "[INFO] Performance test completed" << '\n';
 }
