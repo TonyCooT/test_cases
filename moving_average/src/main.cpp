@@ -84,7 +84,7 @@ void test_performance()
             << data.size() << '\n'
             << "[INFO] Window size: "
             << window << '\n'
-            << "[INFO] Performance metric in counts/seconds: "
+            << "[INFO] Performance metric in counts/second: "
             << (data.size() / time.count()) << '\n'
             << "[INFO] Performance test completed" << '\n';
 }
